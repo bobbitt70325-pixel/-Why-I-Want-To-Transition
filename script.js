@@ -1,29 +1,38 @@
+// =========================================================
+// Focus 公司切換
+// =========================================================
+
 const focusButtons = document.querySelectorAll(".focus-btn");
 const focusCards = document.querySelectorAll(".focus-card");
 
-focusButtons.forEach(function(button) {
+focusButtons.forEach(function (button) {
 
-  button.addEventListener("click", function() {
+  button.addEventListener("click", function () {
 
     const targetId = button.dataset.target;
     const targetCard = document.getElementById(targetId);
 
-    // 清除所有按鈕 active 狀態
-    focusButtons.forEach(function(btn) {
+    const alreadyActive = button.classList.contains("active");
+
+
+    // 先清除所有按鈕
+    focusButtons.forEach(function (btn) {
       btn.classList.remove("active");
     });
 
-    // 隱藏所有卡片
-    focusCards.forEach(function(card) {
+
+    // 先關閉所有卡片
+    focusCards.forEach(function (card) {
       card.classList.remove("show");
     });
 
-    // 當前按鈕變 active
-    button.classList.add("active");
 
-    // 顯示對應卡片
-    if (targetCard) {
+    // 如果原本不是開啟狀態，就打開
+    if (!alreadyActive && targetCard) {
+
+      button.classList.add("active");
       targetCard.classList.add("show");
+
     }
 
   });
@@ -31,21 +40,35 @@ focusButtons.forEach(function(button) {
 });
 
 
-// Preview 圖片展開功能
+
+// =========================================================
+// 作品 Preview 展開功能
+// =========================================================
+
 const previewButtons = document.querySelectorAll(".preview-btn");
 
-previewButtons.forEach(function(button) {
+previewButtons.forEach(function (button) {
 
-  button.addEventListener("click", function() {
+  button.addEventListener("click", function () {
 
     const targetId = button.dataset.preview;
     const gallery = document.getElementById(targetId);
 
-    // 如果找到對應圖片區塊
     if (gallery) {
 
-      // 切換 show class
       gallery.classList.toggle("show");
+
+
+      // 切換按鈕文字
+      if (gallery.classList.contains("show")) {
+
+        button.textContent = "Close Preview";
+
+      } else {
+
+        button.textContent = "View Preview";
+
+      }
 
     }
 
